@@ -3,107 +3,100 @@ import { Camera } from './camera.js';
 import { World  } from './world.js';
 
 
-window.onload = function(){
+window.addEventListener('load', () => {
 	const canva = document.getElementById('qwe');
 	canva.width = window.innerWidth;
   canva.height = window.innerHeight;
 
-	const c = canvas.getContext('2d');
+	const c = canva.getContext('2d');
 
-  window.addEventListener('keydown',wcis,false);
-  window.addEventListener('keyup',odcis,false);
+  window.addEventListener('keydown', pressKey,false);
+  window.addEventListener('keyup',releseKey,false);
 
-	let lewo, prawo, gora, dol = false;
+	let left, right, up, down = false;
 
-	function wcis(event) {
+	function pressKey(event) {
         let keyCode = event.keyCode;
         switch (keyCode) {
             case 37: //d
-                lewo = true;
-                // gora = false;
-                prawo = false;
-                // dol = false;
+                left = true;
+                // up = false;
+                right = false;
+                // down = false;
                 break;
             case 38: //s
-                gora = true;
-                dol = false;
-                // prawo = false;
-                // lewo = false;
+                up = true;
+                down = false;
+                // right = false;
+                // left = false;
                 break;
             case 39: //a
-                prawo = true;
-                lewo = false;
-                // gora = false;
-                // dol = false;
+                right = true;
+                left = false;
+                // up = false;
+                // down = false;
                 break;
             case 40: //w
-                dol = true;
-                gora = false;
-                // lewo = false;
-                // prawo = false;
+                down = true;
+                up = false;
+                // left = false;
+                // right = false;
                 break;
         }
         event.stopPropagation();
         event.preventDefault();
     }
 
-    function odcis(event) {
+    function releseKey(event) {
         let keyCode = event.keyCode;
         switch (keyCode) {
             case 37:
-                lewo = false;
+                left = false;
                 break;
             case 38:
-                gora = false;
+                up = false;
                 break;
             case 39:
-                prawo = false;
+                right = false;
                 break;
             case 40:
-                dol = false;
+                down = false;
                 break;
         }
     }
 
-    const smok = new Dragon();
+    const dragon = new Dragon();
     const camera = new Camera();
     const world = new World();
 
 	function update(delta) {
-		if(dol) {
-            smok.forward(delta);
+		if(down) {
+            dragon.forward(delta);
             camera.down(c);
         }
 
-		if(gora) {
-            smok.back(delta);
+		if(up) {
+            dragon.back(delta);
             camera.up(c);
         }
 
-		if(lewo) {
-            smok.left(delta);
+		if(left) {
+            dragon.left(delta);
             camera.left(c);
         }
 
-		if(prawo) {
-            smok.right(delta);
+		if(right) {
+            dragon.right(delta);
             camera.right(c);
         }
-
 	}
 
 	function draw() {
-		c.clearRect(0, 0, canvas.width, canvas.height);
+		c.clearRect(0, 0, canva.width, canva.height);
     world.draw(c);
-		smok.draw(c);
-        // console.log('rysuje');
-		// c.drawImage(img, 0, 0, 100, 90, 100, 100, 100, 90);
-		// s.draw(c);
+		dragon.draw(c);
 	}
-
-
 
 	MainLoop.setUpdate(update).setDraw(draw).start();
 
-
-}
+});
