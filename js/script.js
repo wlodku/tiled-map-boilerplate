@@ -1,17 +1,22 @@
+import { Dragon } from './dragon.js';
+import { Camera } from './camera.js';
+import { World  } from './world.js';
+
+
 window.onload = function(){
-	var canvas = document.getElementById('qwe');
-	canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+	const canva = document.getElementById('qwe');
+	canva.width = window.innerWidth;
+  canva.height = window.innerHeight;
 
-	var c = canvas.getContext('2d');
+	const c = canvas.getContext('2d');
 
-    window.addEventListener('keydown',wcis,false);
-    window.addEventListener('keyup',odcis,false);
-	
-	var lewo, prawo, gora, dol = false;
+  window.addEventListener('keydown',wcis,false);
+  window.addEventListener('keyup',odcis,false);
+
+	let lewo, prawo, gora, dol = false;
 
 	function wcis(event) {
-        var keyCode = event.keyCode;
+        let keyCode = event.keyCode;
         switch (keyCode) {
             case 37: //d
                 lewo = true;
@@ -43,7 +48,7 @@ window.onload = function(){
     }
 
     function odcis(event) {
-        var keyCode = event.keyCode;
+        let keyCode = event.keyCode;
         switch (keyCode) {
             case 37:
                 lewo = false;
@@ -60,55 +65,45 @@ window.onload = function(){
         }
     }
 
-    var smok = new Dragon();
-
-    var camera = new Camera();
-
-    var world = new World();
-
-	
+    const smok = new Dragon();
+    const camera = new Camera();
+    const world = new World();
 
 	function update(delta) {
 		if(dol) {
             smok.forward(delta);
             camera.down(c);
         }
-			
+
 		if(gora) {
             smok.back(delta);
             camera.up(c);
         }
-			
+
 		if(lewo) {
             smok.left(delta);
             camera.left(c);
         }
-			
+
 		if(prawo) {
             smok.right(delta);
             camera.right(c);
         }
-		
+
 	}
 
 	function draw() {
 		c.clearRect(0, 0, canvas.width, canvas.height);
-        // camera.draw(c);
-        world.draw(c);
+    world.draw(c);
 		smok.draw(c);
         // console.log('rysuje');
 		// c.drawImage(img, 0, 0, 100, 90, 100, 100, 100, 90);
 		// s.draw(c);
 	}
 
-	
+
 
 	MainLoop.setUpdate(update).setDraw(draw).start();
 
-	
+
 }
-
-
-
-
-
