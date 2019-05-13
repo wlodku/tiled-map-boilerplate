@@ -49,8 +49,9 @@ class Dragon {
 				this.column = 0;
 			}
 		}
-		if(this.x < window.innerWidth - 50)
+		if(this.x < window.innerWidth - 50) {
 			this.x += 2;
+		}
 	}
 
 	back(delta) {
@@ -69,8 +70,19 @@ class Dragon {
 	}
 
 	draw(ctx) {
-		ctx.drawImage(this.img, this.column*this.frameWidth, this.row*this.frameHeight, this.frameWidth, this.frameHeight, this.x, this.y, this.frameWidth, this.frameHeight);
+		ctx.drawImage(
+			this.img,
+			this.column*this.frameWidth,
+			this.row*this.frameHeight,
+			this.frameWidth,
+			this.frameHeight,
+			this.x,
+			this.y,
+			this.frameWidth,
+			this.frameHeight
+		);
 	}
+	
 }
 
 export { Dragon }
